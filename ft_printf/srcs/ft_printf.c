@@ -12,7 +12,7 @@
 
 #include "../headers/ft_printf.h"
 
-static int	putchar(int c)
+static int	putch(int c)
 {
 	char	a;
 
@@ -25,7 +25,7 @@ static int	execute_format(va_list *args, const char *c)
 	if (*c == '%')
 		return (write(1, "%", 1));
 	else if (*c == 'c')
-		return (putchar(va_arg(*args, int)));
+		return (putch(va_arg(*args, int)));
 	else if (*c == 's')
 		return (arg_to_str(va_arg(*args, char *)));
 	else if (*c == 'p')
@@ -36,17 +36,6 @@ static int	execute_format(va_list *args, const char *c)
 		return (arg_to_uint(va_arg(*args, unsigned int)));
 	else if (*c == 'x' || *c == 'X')
 		return (arg_to_hexa(va_arg(*args, int), *c == 'X'));
-	return (0);
-}
-
-static int	is_in_format(char c, char *format)
-{
-	while (*format)
-	{
-		if (*format == c)
-			return (1);
-		format++;
-	}
 	return (0);
 }
 
@@ -61,12 +50,10 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (*s)
 	{
-		if (*s == '%' && is_in_format(*(s + 1), "%csdiupxX"))
+		if (*s == '%')
 			len += execute_format(&args, ++s);
-		else if (*s == '%' && !is_in_format(*(s + 1), "%csdiupxX"))
-			return (-1);
 		else
-			len += putchar(*s);
+			len += putch(*s);
 		s++;
 	}
 	va_end(args);
