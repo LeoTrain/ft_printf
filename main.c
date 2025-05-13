@@ -3,7 +3,8 @@
 
 int main(void)
 {
-	printf("%d\n", ft_printf(NULL));
-	printf("%d\n", printf(NULL));
+	printf("%d\n", ft_printf("%"));
+	printf("%d\n", printf("%"));
+
 }
 

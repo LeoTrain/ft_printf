@@ -39,6 +39,17 @@ static int	execute_format(va_list *args, const char *c)
 	return (0);
 }
 
+static int	is_in_format(char c, char *format)
+{
+	while (*format)
+	{
+		if (*format == c)
+			return (1);
+		format++;
+	}
+	return (0);
+}
+
 int	ft_printf(const char *s, ...)
 {
 	va_list	args;
@@ -50,8 +61,10 @@ int	ft_printf(const char *s, ...)
 	va_start(args, s);
 	while (*s)
 	{
-		if (*s == '%')
+		if (*s == '%' && is_in_format(*(s + 1), "%csdiupxX"))
 			len += execute_format(&args, ++s);
+		else if (*s == '%' && !is_in_format(*(s + 1), "%csdiupxX"))
+			return (-1);
 		else
 			len += putchar(*s);
 		s++;
