@@ -44,6 +44,8 @@ int	ft_printf(const char *s, ...)
 	va_list	args;
 	int		len;
 
+	if (s == NULL)
+		return (-1);
 	len = 0;
 	va_start(args, s);
 	while (*s)
