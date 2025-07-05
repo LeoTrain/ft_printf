@@ -59,7 +59,6 @@ char	**ft_split(const char *s, char c)
 {
 	char	**result;
 	size_t	i;
-	size_t	j;
 	size_t	count;
 
 	if (!s)
@@ -69,7 +68,6 @@ char	**ft_split(const char *s, char c)
 	if (!result)
 		return (NULL);
 	i = 0;
-	j = 0;
 	while (i < count)
 	{
 		while (*s == c && *s)
